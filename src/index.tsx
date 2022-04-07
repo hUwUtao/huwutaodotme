@@ -14,7 +14,7 @@ import { BrowserTracing } from '@sentry/tracing'
 import TagManager from 'react-gtm-module'
 
 const tagManagerArgs = {
-  gtmId: 'GTM-WC9LBDG',
+  gtmId: env.gaTracker,
 }
 
 TagManager.initialize(tagManagerArgs)
