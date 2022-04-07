@@ -227,6 +227,12 @@ const Footer: React.FC<ISection> = (props: ISection) => {
   return (
     <div className="footer">
       <h3>{content}</h3>
+      <a href={`${githubUrl}/huwutaodotme`}>
+        <span className="dark bold">
+          <FontAwesomeIcon icon={faGithubAlt} />
+          &nbsp;Github
+        </span>
+      </a>
     </div>
   )
 }
