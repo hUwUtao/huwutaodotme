@@ -8,13 +8,16 @@ import './styles/index.scss'
 
 import App from './App'
 
-import ReactGA from 'react-ga'
-
 import * as Sentry from '@sentry/react'
 import { BrowserTracing } from '@sentry/tracing'
 
-ReactGA.initialize(env.gaTracker)
-ReactGA.pageview(window.location.pathname + window.location.search)
+import TagManager from 'react-gtm-module'
+
+const tagManagerArgs = {
+  gtmId: 'GTM-WC9LBDG',
+}
+
+TagManager.initialize(tagManagerArgs)
 
 Sentry.init({
   dsn: env.sentryDSN,
