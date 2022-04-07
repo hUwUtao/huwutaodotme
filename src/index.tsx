@@ -1,14 +1,17 @@
-import React, { StrictMode as StrictContainer } from 'react'
+import React, { StrictMode as StrictDOM } from 'react'
 import ReactDOM from 'react-dom'
-// import { Provider } from 'react-redux'
 
-import './index.css'
+import './util/setupTests'
+import './util/analytics'
+import './util/sentry'
+
+import './styles/index.scss'
 
 import App from './App'
 
 ReactDOM.render(
-  <StrictContainer>
+  <StrictDOM>
     <App />
-  </StrictContainer>,
+  </StrictDOM>,
   document.getElementById('root')
 )
