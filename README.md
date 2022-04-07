@@ -14,5 +14,6 @@
 3. fullpage.js is pirated (unlock with $99.99)
 
 ------------
-```/!\ Note: This version is stable enough to crash client
+```
+/!\ Note: This version is stable enough to crash client
 ```
