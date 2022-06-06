@@ -18,8 +18,5 @@ const Config = {
   ],
   discord: ['hUwUtao', 2803],
   discordId: '766662735731490817',
-  // Well bot token for user (no server joined)
-  discordToken:
-    'OTc3NDcwMTQ4MzM4NDA1Mzg2.G68ba1.F7DA0XDHNE3BES8twMN2sLZYl8-S5o9g3-lrds',
 }
 export default Config
