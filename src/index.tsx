@@ -2,14 +2,9 @@ import React, { StrictMode as StrictDOM } from 'react'
 import ReactDOM from 'react-dom'
 import env from './env'
 
-import './util/setupTests'
-
-import './styles/index.scss'
+import './styles/index.css'
 
 import App from './App'
-
-import * as Sentry from '@sentry/react'
-import { BrowserTracing } from '@sentry/tracing'
 
 import TagManager from 'react-gtm-module'
 
@@ -19,15 +14,14 @@ const tagManagerArgs = {
 
 TagManager.initialize(tagManagerArgs)
 
-Sentry.init({
-  dsn: env.sentryDSN,
-  integrations: [new BrowserTracing()],
-  tracesSampleRate: 1.0,
-})
+const STRICTMODE = (
+    <StrictDOM>
+      <App />
+    </StrictDOM>
+  ),
+  NORMALMODE = <App />
 
 ReactDOM.render(
-  <StrictDOM>
-    <App />
-  </StrictDOM>,
+  env.strictmod ? STRICTMODE : NORMALMODE,
   document.getElementById('root')
 )
