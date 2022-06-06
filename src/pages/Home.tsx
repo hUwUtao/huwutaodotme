@@ -1,261 +1,159 @@
-import React from 'react'
-import { Fullpage } from '../components/Fullpage'
-import Particles from 'react-tsparticles'
-import {
-  Container as PContainer,
-  Engine as PEngine,
-  ISourceOptions,
-} from 'tsparticles'
-import '../styles/Home.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faGithubAlt,
-  faFacebookF,
-  faSteam,
-  faTwitter,
-  IconDefinition,
-} from '@fortawesome/free-brands-svg-icons'
+import React, { memo, useEffect, useMemo, useState } from 'react'
+import RedirectIcon from '../components/RedirectIcon'
 
-const githubUrl = 'https://github.com/hUwUtao'
-interface ISection {
-  parentState: any | null
-}
+import LazyMarkdown from '../components/LazyMarkdown'
 
-const particlesConfig: ISourceOptions = {
-  background: {
-    color: {
-      value: '#232741',
-    },
-  },
-  fpsLimit: 120,
-  interactivity: {
-    events: {
-      // onClick: {
-      //   enable: true,
-      //   mode: 'repulse',
-      // },
-      onHover: {
-        enable: true,
-        mode: 'bubble',
-      },
-      resize: true,
-    },
-    modes: {
-      bubble: {
-        distance: 250,
-        duration: 2,
-        opacity: 0,
-        size: -0.5,
-      },
-      repulse: {
-        distance: 200,
-        duration: 0.4,
-      },
-    },
-  },
-  particles: {
-    color: {
-      value: '#ffffff',
-    },
-    links: {
-      color: '#ffffff',
-      distance: 150,
-      enable: false,
-      opacity: 0.5,
-      width: 1,
-    },
-    collisions: {
-      enable: true,
-    },
-    move: {
-      direction: 'none',
-      enable: true,
-      outMode: 'out',
-      random: true,
-      speed: 1,
-      straight: true,
-    },
-    number: {
-      density: {
-        enable: true,
-        area: 800,
-      },
-      value: 160,
-    },
-    opacity: {
-      value: 1,
-      anim: {
-        enable: true,
-        speed: 1,
-        opacity_min: 0,
-      },
-    },
-    shape: {
-      type: 'circle',
-    },
-    size: {
-      random: true,
-      value: 3,
-    },
-  },
-  detectRetina: true,
-}
+import env from '../env'
 
-const BgParticle: React.FC = React.memo(function BgParticle() {
-  const particlesInit = (engine: PEngine): Promise<void> => {
-    console.log(engine)
-    return Promise.resolve()
+import '../styles/Home.css'
+
+const Home: React.FC = () => {
+  function top() {
+    return (
+      <div className="min-h-screen max-h-fit w-full sm:p-5 flex flex-row justify-center">
+        <div className="bg-discord-black sm:rounded-2xl transition-all sm:w-3/4 h-fit min-h-screen sm:min-h-fit">
+          <div
+            className="overflow-hidden sm:rounded-t-2xl -mb-24 w-full"
+            style={{
+              maxHeight: '20vh',
+            }}
+          >
+            <img
+              src="assets/img/cover.jpg"
+              alt=""
+              className="object-cover w-fit"
+            />
+          </div>
+          <div className="mx-6 py-6">
+            <img
+              src="https://cdn.discordapp.com/avatars/766662735731490817/3544cd0cfbd581ccf4492c5aa9e5bcd7.png"
+              alt="Discord profile picture"
+              className="rounded-full overflow-hidden"
+            />
+            <div className="my-3 divide-y divide-solid divide-discord-dark">
+              <div className="block py-3 pt-0">
+                <span className="text-3xl font-bold">
+                  {env.discord[0]}
+                  <span className="text-discord-secondary">
+                    #{env.discord[1]}
+                  </span>
+                </span>
+              </div>
+              <div>
+                <LazyMarkdown url="assets/about.md" />
+              </div>
+              <div className="py-3 flex flex-row flex-wrap justify-between">
+                {env.socialUrl.map((social, item) => (
+                  <a
+                    key={item}
+                    href={social[2]}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="border border-solid border-discord-secondary rounded-md p-2 m-1 flex flex-row justify-between sc-w"
+                  >
+                    <div className="flex flex-row">
+                      <img
+                        src={'assets/img/' + social[0]}
+                        alt={`${social[1]} - Social media`}
+                      />
+                      <span className="ml-2">{social[1]}</span>
+                    </div>
+                    <RedirectIcon />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
-  const particlesLoaded = (container: PContainer): Promise<void> => {
-    console.log(container)
-    return Promise.resolve()
-  }
-  return (
-    <Particles
-      id="tsparticles"
-      init={particlesInit}
-      loaded={particlesLoaded}
-      options={particlesConfig}
-    />
-  )
-})
 
-const TopBanner: React.FC<ISection> = (props: ISection) => {
-  const socialLinks: Array<{
-    url: string
-    icon: IconDefinition
-  }> = [
-    {
-      url: githubUrl,
-      icon: faGithubAlt,
-    },
-    {
-      url: 'https://fb.me/hUwUtao',
-      icon: faFacebookF,
-    },
-    {
-      url: 'https://steamcommunity.com/id/hUwUtao',
-      icon: faSteam,
-    },
-    {
-      url: 'https://twitter.com/Yanfaru',
-      icon: faTwitter,
-    },
-  ]
-  return (
-    <div className="bpage">
-      <div className="hbanner">
-        <div className="title">
-          <h2>I&apos;m hUwUtao</h2>
-          <div className="brnds">
-            {socialLinks.map((link, index) => (
+  function projects() {
+    return (
+      <div
+        className="w-full h-screen bg-discord-gray p-2 md:p-10"
+        id="projects"
+      >
+        <span className="text-4xl font-medium m-5">Projects</span>
+        <div className="w-full h-full p-5">
+          <div className="h-full flex flex-row items-start flex-wrap content-start justify-center">
+            {env.urProjects.map((item, index) => (
               <a
                 key={index}
-                href={link.url}
+                href={item[0]}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer"
+                className="md:w-1/2 h-fit pb-0 -mb-5"
               >
-                <FontAwesomeIcon icon={link.icon} />
+                <img
+                  src={'assets/img/' + item[2]}
+                  alt={item[1]}
+                  loading="lazy"
+                />
+                <div className="relative -top-14 left-8 flex-row align-baseline inline-flex w-4/5">
+                  <span className={`text-2xl inline ${item[3] ? item[3] : ''}`}>
+                    {item[1]}
+                  </span>
+                </div>
               </a>
             ))}
           </div>
         </div>
-        <hr className="hsp" />
-        <div className="subtitle">
-          <h3>
-            I&apos;m a software engineer, also a hobbyist Javascript developer.
-          </h3>
-        </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
 
-const Projects: React.FC<ISection> = (props: ISection) => {
-  const projects: Array<{
-    title: string
-    imgurl: string
-    target: string
-  }> = [
-    {
-      title: 'Team Fuho Blogpage',
-      imgurl: '/assets/img/teamfuho.net.png',
-      target: 'https://teamfuho.net',
-    },
-    {
-      title: 'Team Fuho Blogpage',
-      imgurl: '/assets/img/teamfuho.net.png',
-      target: 'https://teamfuho.net',
-    },
-  ]
-  return (
-    <div className="ppage">
-      <div className="projects">
-        <div className="pcon">
-          <h1>Projects</h1>
-          <div className="plist">
-            {projects.map((project, index) => (
-              <div className="pitem" key={index}>
-                <a href={project.target}>
-                  <div className="pimg">
-                    <img src={project.imgurl} alt={project.title} />
-                  </div>
-                  <div className="ptitle">
-                    <h2>{project.title}</h2>
-                  </div>
-                </a>
-              </div>
-            ))}
-          </div>
-          <h3 className="mog">
-            <a href={githubUrl}>
-              More project on &nbsp;
-              <span>
-                <FontAwesomeIcon icon={faGithubAlt} />
-                &nbsp;Github
-              </span>
-            </a>
-          </h3>
-        </div>
+  function bottom() {
+    return (
+      <div className="w-full bg-white m-10">
+        <a
+          href="https://github.com/hUwUtao"
+          target="_blank"
+          rel="noreferrer"
+          className="text-lg font-semibold"
+        >
+          Made by hUwUtao
+        </a>
       </div>
-    </div>
-  )
-}
+    )
+  }
 
-const Footer: React.FC<ISection> = (props: ISection) => {
-  const content = 'Made by hUwUtao with <3, under MIT license since 2022'
-  return (
-    <div className="footer">
-      <h3>{content}</h3>
-      <a href={`${githubUrl}/huwutaodotme`}>
-        <span className="dark bold">
-          <FontAwesomeIcon icon={faGithubAlt} />
-          &nbsp;Github
-        </span>
-      </a>
-    </div>
-  )
-}
+  const pageSectors = [top, projects, bottom]
+  // const [lastScroll, setLastScroll] = useState(0)
+  // const [current, setCurrent] = useState<number>(0)
 
-export const Home: React.FC = () => {
+  // useEffect(() => {
+  //   function onScroll() {
+  //     const scroll = window.scrollY
+  //     if (scroll > lastScroll) {
+  //       setCurrent(Math.max(0, current - 1))
+  //     } else {
+  //       setCurrent(Math.min(pageSectors.length - 1, current + 1))
+  //     }
+  //     setCurrent(scroll)
+  //   }
+  //   window.addEventListener('scroll', onScroll)
+  // })
+
   return (
-    <div className="page">
-      <BgParticle />
-      <Fullpage
-        options={{
-          cards: true,
-          cardsOptions: {
-            perspective: 100,
-            fadeContent: true,
-            fadeBackground: true,
-          },
-        }}
-        components={[
-          { tooltip: 'Introduce', component: <TopBanner parentState={null} /> },
-          { tooltip: 'Projects', component: <Projects parentState={null} /> },
-          { tooltip: 'The end?', component: <Footer parentState={null} /> },
-        ]}
-      />
-    </div>
+    // <div
+    //   className="bg-discord-gray -z-50 min-h-screen min-w-full"
+    //   style={{
+    //     backgroundImage: `url(${DiscordArt})`,
+    //     backgroundSize: 'cover',
+    //     backgroundPosition: 'center',
+    //     backgroundAttachment: 'fixed',
+    //   }}
+    // >
+    <>
+      {pageSectors.map((Sector, index) => (
+        <div key={index} id={`scr${index}`} className="snap-start">
+          <Sector />
+        </div>
+      ))}
+    </>
+    // </div>
   )
 }
+export default Home
